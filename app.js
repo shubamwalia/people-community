@@ -13,8 +13,9 @@ const multer = require("multer");
 const crypto = require("crypto");
 const { ensureAuthenticated } = require("./helpers/auth");
 const { ifcond, idorrolecheck, find, notmatch, findname, checkrole, findpendingcommunities, not } = require("./helpers/hbs");
-const port = 8000;
+const port = process.env.PORT || 8000;
 
+const db = require("./config/database.js");
 //Including static css and js files
 app.use(express.static(path.join(__dirname + '/public')));
 
@@ -64,7 +65,7 @@ const upload = multer({
 mongoose.Promise = global.Promise;
 
 //mongoose connection
-mongoose.connect("mongodb://localhost/people", {
+mongoose.connect(db.mongoURI, {
     useNewUrlParser: true
 }).then(function () {
     console.log("mongodb connected...");

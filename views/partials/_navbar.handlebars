@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-md shadow bg-white sticky-top">
+  <a class="navbar-brand text-secondary font-weight-bold" href="/">People</a>
+  <!-- Navbar -->
+  <ul class="navbar-nav ml-auto">
+    {{#if (checkrole user.role "admin" "communitybuilder")}}
+    <li class="nav-item dropdown no-arrow mx-1  mobilesettingpill"><span class="badge badge-pill badge-success ">{{user.role}}</span></li>
+    {{/if}}
+    <li class="nav-item dropdown no-arrow mx-1 mobilesettingpill"><span class="badge badge-pill badge-info ">{{user.name}}</span></li>
+    {{#if user}}
+    <img src="{{user.profilephoto}}" class="rounded-circle ml-2 mobilesettingpill shadow-sm" height="30px" width="30px">
+    <button type="button" onclick="openSideNav()" class="navbar-toggler collapsed btn btn-link btn-sm text-black"
+      data-toggle="collapse" id="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    {{/if}}
+  </ul>
+</nav>

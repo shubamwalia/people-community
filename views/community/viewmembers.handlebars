@@ -1,0 +1,31 @@
+<div class="container">
+<div class="row">
+        <div class="col">
+           <img src="{{communities.communityphoto}}" class="img-fluid img-thumbnail" height="100px" width="100px">
+           <span class="p-2"><a href="/community/communityprofile/{{communities.id}}">{{communities.name}}</a></span>
+        </div>
+    </div>
+<hr>
+<div class="card shadow">
+    <div class="card-header bg-info text-white">
+        Members  <span class="badge badge-light">{{memberscount}}</span>
+    </div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            {{#each joinedadmins}}
+                <li class="list-group-item">
+                <img src="{{profilephoto}}" class="img-fluid img-thumbnail rounded-circle mr-5 shadow-sm" height="50px" width="50px">
+                <a href="/profile/{{id}}">{{name}}</a>
+                {{#if (ifcond id "==" ../communities.useraccess)}}
+                    <span class="badge badge-success">Owner</span></li>
+                {{/if}}
+            {{/each}}
+            {{#each joinedmembers}}
+                <li class="list-group-item">
+                <img src="{{profilephoto}}" class="img-fluid img-thumbnail rounded-circle mr-5 shadow-sm" height="50px" width="50px">
+                <a href="/profile/{{id}}">{{name}}</a></li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
+</div>

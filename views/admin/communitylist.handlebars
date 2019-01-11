@@ -1,0 +1,69 @@
+<div class="card card mb-3">
+    <div class="card-header bg-info text-white">
+        <i class="fas fa-users"></i>
+        Community List
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Community Name</th>
+                        <th>Membership Rule</th>
+                        <th>Community Owner</th>
+                        <th>Date Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each communities}}
+                    <tr>
+                        <td>{{name}}</td>
+                        <td>{{rule}}</td>
+                        <td>{{findname useraccess ../users}}</td>
+                        <td>{{date}}</td>
+                        <td>
+                            <a  class="text-info m-1" data-toggle="modal" href="#ModalCenter{{id}}"><i class="fas fa-edit"></i></a>
+
+
+                            <div class="modal fade" id="ModalCenter{{id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">Edit Community</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/community/editcommunity/{{id}}?_method=PUT" method="post">
+                                                <input type="hidden" name="_method" value="PUT">
+                                                <input type="hidden" name="_method" value="PUT">
+                                                <div class="form-group">
+                                                    <label>Name</label>
+                                                    <input type="text" name="name" class="form-control" placeholder="Enter name"
+                                                        value="{{name}}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Description</label>
+                                                    <textarea name="description" class="form-control" placeholder="Enter description">{{description}}</textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Update</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <a href="/community/deletecommunity/{{id}}" class="text-danger m-1"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="container">
+<div class="card mt-3 shadow">
+    <h5 class="card-header bg-info text-white"><i class="fas fa-user"></i> Profile
+        {{#if (ifcond user.id "==" users.id)}}
+        <a href="/editprofile" class="text-white float-lg-right float-md-right float-sm-right float-right">
+        <i class="fas fa-user-edit fa-1x"></i></a>
+        {{/if}}
+    </h5>
+    <div class="card-body">
+        <div class="row">
+        <div class="col">
+           <img src="{{users.profilephoto}}" class="img-fluid img-thumbnail rounded-circle" height="150px" width="150px">
+        </div>
+        </div>
+        <hr>
+        <div class="row mb-3">
+            <div class="col-sm-6">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        Email
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{users.email}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                    <div class="card shadow-sm">
+                    <div class="card-header">
+                        Gender
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{users.gender}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="row mb-3">
+            <div class="col-sm-6">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        Name
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{users.name}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                    <div class="card shadow-sm">
+                    <div class="card-header">
+                        City
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{users.city}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="row mb-3">
+            <div class="col-sm-6">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        DOB
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{users.dob}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                    <div class="card shadow-sm">
+                    <div class="card-header">
+                        Phone
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{users.phone}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

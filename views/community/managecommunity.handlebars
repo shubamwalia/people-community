@@ -1,0 +1,85 @@
+<div class="container">
+        <table>
+            <tr>
+            <td>
+           <form action="/community/communityphoto/{{communities.id}}" method="POST" enctype="multipart/form-data">
+                <div class="avatar-upload">
+                <div class="avatar-edit">
+                    <input type='file' id="imageUpload" name="communityphoto">
+                    <label for="imageUpload"></label>
+                </div>
+                <div class="avatar-preview">
+                    <div id="imagePreview" style="background-image: url({{communities.communityphoto}});">
+                    </div>
+                </div>
+                </div>
+                <button type="submit" class="btn btn-sm btn-info m-3 ml-5">Upload</button>
+            </form>
+            </td>
+            <td class="align-middle">
+                 <h5 class="ml-3 pb-4"><a href="/community/communityprofile/{{communities.id}}">{{communities.name}}</a></h5>
+            </td>
+            </tr>
+        </table>
+<hr>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+                Manage Community
+            </div>
+            <div class="card-body">
+                <div class="mt-1">    
+                <i class="fas fa-edit text-info pr-1"></i><a href="/community/editcommunity/{{communities.id}}"> Edit Community</a>
+                </div>
+                <div class="mt-1">
+                <i class="fas fa-trash text-danger pr-1"></i><a href="/community/deletecommunity/{{communities.id}}"> Remove Community</a>
+                </div>
+                {{#if (ifcond communities.rule "==" "permission")}}
+                <div class="mt-1">
+                <i class="fas fa-user text-info"></i><sup><span class="badge badge-light pr-1">{{communities.usersrequests.length}}</span></sup><a href="/community/requests/{{communities.id}}"> Requests</a>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+               Members
+                <a class="btn btn-sm btn-info text-white border-white float-lg-right float-md-right float-sm-right ml-1" data-toggle="collapse" href="#adminmembers" role="button" aria-expanded="false">
+                    Community Owner
+                </a>
+                <a class="btn btn-sm btn-info text-white border-white float-lg-right float-md-right float-sm-right" data-toggle="collapse" href="#usermembers" role="button" aria-expanded="false">
+                    Members
+                    <span class="badge badge-light">{{joinedmembers.length}}</span>
+                </a>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <div class="collapse" id="adminmembers">
+                        {{#each joinedadmins}}
+                        {{#if (ifcond id "==" ../communities.useraccess)}}
+                        <li class="list-group-item">
+                        <img src="{{profilephoto}}" class="img-fluid img-thumbnail rounded-circle mr-5 shadow-sm" height="50px" width="50px">                        
+                        <a href="/profile/{{id}}">{{name}}
+                        <span class="badge badge-pill badge-success">Owner</span></a>
+                        {{/if}}
+                        </li>
+                        {{/each}}
+                    </div>
+
+                    <div class="collapse show" id="usermembers">
+                        {{#each joinedmembers}}
+                        <li class="list-group-item">
+                        <img src="{{profilephoto}}" class="img-fluid img-thumbnail rounded-circle mr-5 shadow-sm" height="50px" width="50px">
+                        <a href="/profile/{{id}}">{{name}}</a>
+                        <a href="/community/removemember/{{id}}/{{../communities.id}}" class="float-lg-right float-md-right float-sm-right float-right text-danger mr-5 p-3"><i class="fas fa-trash"></i></a></li>
+                        {{/each}}
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

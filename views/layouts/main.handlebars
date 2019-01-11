@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>People</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    {{!-- <link rel="stylesheet" href="/css/bootstrap.css"> --}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href="/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="/css/sb-admin.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    {{>_navbar}}
+    <div id="wrapper">
+        <!-- Sidebar -->
+        {{#if user}}
+        <div id="sidebar-wrapper" class="shadow">
+            <ul class="sidebar-nav ">
+                <li class="onlyForPcNav">
+                    <a onclick="openSideNav()">
+                        <span class="fa-stack fa-lg pull-left noncolor">
+                            <i class="fa fa-bars fa-stack-1x "></i>
+                        </span><span class="noncolor">People</span>
+                    </a>
+                </li>
+                {{#if (ifcond user.role "==" "admin")}}
+                    {{#if (not user.switchuser)}}
+                        <li>
+                            <a href="/profile/{{user.id}}"><span class="fa-stack fa-lg pull-left">
+                                    <i class="fa fa-home fa-stack-1x "></i></span>Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/adduser"><span class="fa-stack fa-lg pull-left">
+                                    <i class="fa fa-plus-square fa-stack-1x "></i></span>
+                                Add User
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/userlist"> <span class="fa-stack fa-lg pull-left">
+                                    <i class="fa fa-list-ul fa-stack-1x "></i></span>Users List</a>
+                        </li>
+                        <li>
+                            <a href="/admin/communitylist"><span class="fa-stack fa-lg pull-left">
+                                    <i class="fa fa-list-alt fa-stack-1x "></i></span>Community List</a>
+                        </li>
+                        <li>
+                            <a href="/admin/switch"><span class="fa-stack fa-lg pull-left noncolor">
+                            <i class="fa fa-toggle-off fa-stack-1x "></i></span>
+                            <span class="noncolor">Switch As User</span>
+                            </a>
+                        </li>
+                    {{else}}
+                        <li>
+                        <a href="/profile/{{user.id}}"><span class="fa-stack fa-lg pull-left">
+                                <i class="fa fa-user fa-stack-1x "></i></span>
+                            {{user.name}}
+                        </a>
+                        </li>
+
+                        <li>
+                            <a href="/community/communitypanel"><span class="fa-stack fa-lg pull-left">
+                                    <i class="fa fa-users fa-stack-1x "></i></span>Communities
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/switch"><span class="fa-stack fa-lg pull-left noncolor">
+                            <i class="fa fa-toggle-off fa-stack-1x "></i></span>
+                            <span class="noncolor">Switch As Admin</span>
+                            </a>
+                        </li>
+                    {{/if}}
+                {{else}}
+                    <li>
+                        <a href="/profile/{{user.id}}"><span class="fa-stack fa-lg pull-left">
+                                <i class="fa fa-user fa-stack-1x "></i></span>
+                            {{user.name}}
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/community/communitypanel"><span class="fa-stack fa-lg pull-left">
+                                <i class="fa fa-users fa-stack-1x "></i></span>Communities
+                        </a>
+                    </li>
+                {{/if}}
+                {{!-- <li>
+                    <a onclick="switchState('Switch As User')"><span class="fa-stack fa-lg pull-left noncolor">
+                            <i class="fa fa-toggle-off fa-stack-1x "></i></span>
+                        <span class="noncolor">Switch As User</span>
+                    </a>
+                </li> --}}
+                {{!-- <li>
+                    <a href="/tag"><span class="fa-stack fa-lg pull-left">
+                            <i class="fa fa-tags fa-stack-1x "></i></span>Tag Panel</a>
+                </li> --}}
+                <li>
+                    <a href="/changepassword"><span class="fa-stack fa-lg pull-left">
+                            <i class="fa fa-lock fa-stack-1x "></i></span>
+                        Change Password
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout"><span class="fa-stack fa-lg pull-left">
+                            <i class="fa fa-sign-out-alt fa-stack-1x noncolor"></i></span><span class="noncolor">Logout</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        {{/if}}
+        <div id="page-content-wrapper">
+            <div class="container-page-content mw-100 mh-100">
+                    {{>_errorhandle}}
+                    {{>_messages}}
+                    {{{body}}}
+            </div>
+        </div>
+
+
+        {{#if user}}
+    </div>
+    {{else}}
+    <footer class="sticky-footer shadow-lg bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>People &copy; 2019</span>
+            </div>
+          </div>
+    </footer>
+    {{/if}}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    {{!-- <script src="/js/jquery.min.js"></script> --}}
+    <script type="text/javascript">
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+
+        $("#menu-toggle-pc").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled-pc");
+            $('#menu ul').hide();
+        });
+
+        function openSideNav() {
+            $("#wrapper").toggleClass("toggled-pc");
+            $('#menu ul').hide();
+        }
+
+
+        function initMenu() {
+            $('#menu ul').hide();
+            $('#menu ul').children('.current').parent().show();
+            $('#menu li a').click(
+                function () {
+                    var checkElement = $(this).next();
+                    if ((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+                        return false;
+                    }
+                    if ((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
+                        $('#menu ul:visible').slideUp('normal');
+                        checkElement.slideDown('normal');
+                        return false;
+                    }
+                }
+            );
+        }
+        $(document).ready(function () {
+            initMenu();
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    
+    {{!-- <script src="/js/bootstrap.js"></script> --}}
+    <script src="/js/jquery.dataTables.js"></script>
+    <script src="/js/dataTables.bootstrap4.js"></script>
+    <script src="/js/script.js"></script>
+
+</body>
+
+</html>

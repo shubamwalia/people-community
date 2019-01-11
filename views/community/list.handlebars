@@ -1,0 +1,32 @@
+    <div class="container">
+      <div class="card shadow">
+        <h5 class="card-header bg-info text-white"><i class="fas fa-users"></i> Communities
+        <a class="btn btn-sm border-white rounded-pill text-white float-lg-right float-md-right float-sm-right ml-1" data-toggle="collapse" href="#communitysearch" role="button" aria-expanded="false" aria-controls="communitysearch">
+            <i class="fas fa-search"></i>
+        </a>
+        </h5>
+        <div class="collapse" id="communitysearch">
+            <input class="float-lg-right float-md-right float-sm-right border-0 p-2" id="searchinput" type="text" placeholder="Search Communities...">
+        </div>
+        <div class="card-body" id="searchlist">
+            {{#each communities}}
+                {{#if (notmatch id ../pendingcommunities)}}
+                    {{#if (notmatch id ../communitiesjoined)}}
+                    <div class="card mt-2 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="/community/communityprofile/{{id}}">{{name}}</a>
+                            {{#if (ifcond rule "==" "direct")}}
+                            <a href="/user/joincommunity/{{id}}" class="btn btn-success float-lg-right float-md-right">Join</a>
+                            {{else}}
+                            <a href="/user/asktojoincommunity/{{id}}" class="btn btn-warning text-white float-right float-sm-right">Ask To Join</a>
+                            {{/if}}
+                            </h5>
+                            <p class="card-text">{{description}}</p>
+                        </div>
+                    </div>
+                    {{/if}}
+                {{/if}}
+            {{/each}}
+        </div>
+    </div>
+    </div>

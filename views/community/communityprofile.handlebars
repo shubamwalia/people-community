@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+           <img src="{{communities.communityphoto}}" class="img-fluid img-thumbnail rounded-circle" height="100px" width="100px">
+           <span class="p-2"><a href="/community/communityprofile/{{communities.id}}">{{communities.name}}</a></span>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-lg-3 col-md-3">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    Members <span class="badge badge-light">{{usercount}}</span>
+                </div>
+                <div class="card-body text-center">
+                    {{#if (find communities.id user.communitiesjoinedaccess)}}
+                    
+                    <a href="/user/leavecommunity/{{communities.id}}" class="btn btn-danger">Leave</a>
+                    <a href="/community/viewmembers/{{communities.id}}" class="btn btn-success">View all</a>
+                    {{else}}
+                        {{#if (find communities.id user.pendingcommunitiesaccess)}}
+                        <span class="badge badge-pill badge-info">Pending</span>
+                        <span class="btn"><a href="/user/cancelrequest/{{user.pendingcommunitiesaccess}}" class="text-danger ml-3"><i class="fas fa-times panelicon"></i></a></span>
+                        {{else}}
+                            {{#if (ifcond communities.rule "==" "direct")}}
+                            <a href="/user/joincommunity/{{communities.id}}" class="btn btn-primary">Join</a>
+                            {{else}}
+                            <a href="/user/asktojoincommunity/{{communities.id}}" class="btn btn-primary">Ask To Join</a>
+                            {{/if}}
+                        {{/if}}
+                    {{/if}}
+                
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    About Community
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{communities.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-md-3">
+            <div class="card shadow mt-5">
+                <div class="card-header bg-info text-white">
+                    Community Owner
+                </div>
+                <div class="card-body">
+                    <img src="{{users.profilephoto}}" class="img-fluid img-thumbnail rounded-circle mr-4 shadow-sm" height="50px" width="50px">
+                    <a href="/profile/{{users.id}}">{{users.name}}</a>
+                    <div>
+                    <span class="badge badge-pill badge-success">Owner</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9">
+                {{#each discussions}}
+                <div class="card mt-5 shadow">
+                    <div class="card-header ">
+                        <h4>{{title}}</h4>
+                        <small class="text-muted">Posted by <a href="/profile/{{useraccess}}">{{author}}</a> on {{date}}</small>
+                    </div>
+                    <div class="card-body">
+                            {{details}}
+                    </div>
+                </div>
+                {{/each}}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+           <img src="{{communities.communityphoto}}" class="img-fluid img-thumbnail rounded-circle" height="100px" width="100px">
+           <span class="p-2"><a href="/community/communityprofile/{{communities.id}}">{{communities.name}}</a></span>
+        </div>
+    </div>
+    <hr>
+    <div class="card mt-3 shadow">
+        <div class="card-header bg-info text-white">
+            Requests <span class="badge badge-light">{{users.length}}</span>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                {{#each users}}
+                    <li class="list-group-item">
+                    <img src="{{profilephoto}}" class="img-fluid img-thumbnail rounded-circle mr-5 shadow-sm" height="50px" width="50px">
+                    <a href="/profile/{{id}}">{{name}}</a>
+                    <a href="/community/rejectrequest/{{id}}/{{../communityid}}" class="float-lg-right float-md-right float-sm-right float-right text-danger mr-5"><i class="fas fa-trash"></i></a>
+                    <a href="/community/acceptrequest/{{id}}/{{../communityid}}" class="float-lg-right float-md-right float-sm-right float-right text-success mr-5"><i class="fas fa-check"></i></a>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>

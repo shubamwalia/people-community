@@ -1,0 +1,52 @@
+<div class="container">
+<div class="card shadow mt-3">
+    <div class="card-header bg-info text-white"><h5><i class="fas fa-users"></i> My Communities
+    <a class="btn btn-sm border-white rounded-pill text-white float-lg-right float-md-right float-sm-right ml-1" data-toggle="collapse" href="#communitysearch" role="button" aria-expanded="false" aria-controls="communitysearch">
+        <i class="fas fa-search"></i>
+    </a>
+    {{#if (checkrole user.role "communitybuilder" "admin")}}
+        {{#if (not user.switchuser)}}
+         <a href="/community/addcommunity" class="btn btn-sm border-white rounded-pill text-white float-lg-right float-md-right float-sm-right ml-1">Create Community </a>
+        {{/if}}
+    {{/if}}
+        <a href="/community/list" class="btn btn-sm border-white rounded-pill text-white float-lg-right float-md-right float-sm-right">All Communities</a>
+    </h5>
+        
+    </div>
+    <div class="collapse" id="communitysearch">
+        <input class="float-lg-right float-md-right float-sm-right border-0 p-2" id="searchinput" type="text" placeholder="Search Communities...">
+    </div>
+    <div class="card-body" id="searchlist">
+        {{#each communities}}
+            {{#if (find id ../communitiesjoined)}}
+                <div class="card shadow-sm mt-2">
+                    <div class="card-body">
+                        <div class="card-title"><a href="/community/discussions/{{id}}"> <img src="{{communityphoto}}" class="img-fluid img-thumbnail rounded-circle" height="100px" width="100px"><span class="p-lg-3 p-md-3 p-sm-3 p-1">{{name}}</span></a>
+                            {{#if (ifcond useraccess "==" ../userid)}}
+                             <a href="/community/managecommunity/{{id}}" class="text-warning float-lg-right float-md-right p-lg-2 p-md-2 p-sm-2 mt-lg-4 mt-md-4 mt-sm-4 mt-4 d-block"><i class="fas fa-cogs panelicon"></i></a>
+                                {{#if (ifcond rule "==" "permission")}}
+                                    <a href="/community/requests/{{id}}" class="float-lg-right float-md-right  p-lg-2 p-md-2 p-sm-2 mt-lg-4 mt-md-4 mt-sm-4 mt-4 d-block"> <i class="fas fa-user panelicon"></i><sup><span class="badge badge-light" style="font-size:12px"> {{usersrequests.length}}</span></sup></a>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                        
+                    </div>
+                </div>
+            {{/if}}
+            {{#if (findpendingcommunities id ../pendingcommunities)}}
+                <div class="card shadow-sm mt-2">
+                    <div class="card-body">
+                        <div class="card-title">
+                        <a href="/community/communityprofile/{{id}}">
+                        <img src="{{communityphoto}}" class="img-fluid img-thumbnail rounded-circle" height="100px" width="100px">
+                        <span class="p-lg-3 p-md-3 p-sm-3 p-1">{{name}}</span>
+                        <span class="badge badge-pill badge-info">Pending</span>
+                        </a>
+                        <a href="/user/cancelrequest/{{id}}" class="text-danger float-lg-right float-md-right float-sm-right p-lg-2 p-md-2 p-sm-2 mt-lg-4 mt-md-4 mt-sm-4 mt-4 d-block"><i class="fas fa-times fa-2x"></i></a>    
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+        {{/each}}
+</div>
+</div>

@@ -13,7 +13,7 @@ require("../models/communities");
 const Community = mongoose.model("communities");
 
 function profilecheck(user) {
-    if (user.role == "admin") {
+    /*if (user.role == "admin") {
         if ((user.email != undefined) && (user.name != undefined) && (user.dob != undefined) && (user.phone != undefined) && (user.gender != undefined) && (user.city != undefined)) {
             return true;
         }
@@ -28,12 +28,13 @@ function profilecheck(user) {
         else {
             return false;
         }
-    }
+    }*/
+    return true;
 }
 
 //routing adduser
-router.get("/adduser",ensureAuthenticated,function(req,res){
-    if(profilecheck(req.user)){
+router.get("/adduser",function(req,res){
+   /* if(profilecheck(req.user)){
     if(req.user.role=="admin"){
         res.render("admin/adduser");
     }
@@ -45,7 +46,9 @@ router.get("/adduser",ensureAuthenticated,function(req,res){
     else {
         req.flash("error_msg", "Please fill your profile first");
         res.redirect("/addprofile");
-    }
+    }*/
+    res.render("admin/adduser");
+
 });
 
 router.get("/userlist",ensureAuthenticated,function(req,res){

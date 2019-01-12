@@ -193,7 +193,7 @@ router.post("/sendmessage/:id",ensureAuthenticated,function(req,res){
 });
 
 //Post request from adduser
-router.post("/adduser",ensureAuthenticated,function(req,res){
+router.post("/adduser",function(req,res){
         let credentialsoutput =  `<b>This mail is from People-Community.</b>
         <br><br>
         </b>Please login using the provided credentials</b>

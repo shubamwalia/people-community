@@ -70,7 +70,7 @@ mongoose.connect(db.mongoURI, {
 }).then(function () {
     console.log("mongodb connected...");
 }).catch(function (err) {
-    console.log(err);
+    console.log("mongo error not connected", err);
 });
 
 //loading users
@@ -258,8 +258,18 @@ app.get("/changepassword", ensureAuthenticated, function (req, res) {
 
 //Routing to logout
 app.get("/logout", function (req, res) {
-    req.logOut();
-    res.redirect("/");
+    if(req.user.switchuser){
+    User.findOneAndUpdate({_id:req.user.id},{
+        switchuser:false
+    }).then(function(){
+        req.logOut();
+        res.redirect("/");
+    });
+    }
+    else{
+        req.logOut();
+        res.redirect("/");
+    }
 });
 
 //Put request from add profile

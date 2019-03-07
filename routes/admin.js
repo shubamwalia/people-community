@@ -243,10 +243,11 @@ router.post("/adduser",ensureAuthenticated,function(req,res){
                                     auth: {
                                         type: 'OAuth2',
                                         user: 'noreply.people.community@gmail.com',
-                                        clientId: '349849454393-gsso9rjis4b1390l0h4cmvobo1h1mppo.apps.googleusercontent.com',
-                                        clientSecret: 'BdWKFoooVl-W2mqID4JKD0Oi',
-                                        refreshToken: '1/ckOGxZ-CNomy4B_kYpZ6et-LjV1BXQ8KF13HWDtQmYI',
-                                        accessToken: 'ya29.GluJBu4iHmtCG0jqinxDEflgdzlRYNEfnwx4IB7JDnWrb3IOuNp1UdwJml9SpVEjRygtTNPN5bDE1CAETKcMhJ7z8GOUzf7hQUK7-25zF0996QL0EvaTx1jU_n9Q',
+                                        // replace with production credentials
+                                        clientId: '',
+                                        clientSecret: '',
+                                        refreshToken: '',
+                                        accessToken: '',
                                     }
                                 });
                             

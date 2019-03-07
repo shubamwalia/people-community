@@ -11,7 +11,6 @@
         <h5>Start a discussion</h5>
     </div>
     <form action="/community/adddiscussion/{{community}}" method="POST">
-    <input type="hidden" name="_method" value="PUT">
         <div class="card-body">
             <div class="form-group">
                 <label>Title</label>
@@ -83,8 +82,8 @@
         </small>
         </div>
     </div>
-    
 
+    <div class="commentlist">
     {{#each ../comments}}
         {{#if (ifcond discussionaccess "==" ../id)}}
             <div class="collapse" id="comments{{../id}}">
@@ -95,7 +94,7 @@
                     <a class="text-danger ml-3" href="/community/commentdelete/{{id}}/{{../communityaccess}}"><i class="fas fa-trash"></i></a>
                 {{/if}}
                 <div class="ml-5">                
-                <ol class="breadcrumb ml-4">
+                <ol class="breadcrumb ml-4 commentlist">
                     <li class="breadcrumb-item active" aria-current="page">{{usercomment}}</li>
                 </ol>
                 </div>
@@ -103,10 +102,13 @@
             </div>
         {{/if}}
     {{/each}}
+    </div>
+
         <div class="card-body border-top">
-        <form action="/community/addcomment/{{id}}/{{../community}}" method="POST">
+        <form class="addcomment">
             <div class="input-group">
-                <input type="text" aria-label="Large" class="form-control" name="comment" placeholder="Reply to this discussion">
+                <input type="hidden" class="commenthidden" value="{{id}}/{{../community}}">
+                <input type="text" aria-label="Large" class="form-control commentinput" name="comment" placeholder="Reply to this discussion">
                 <div class="input-group-append">
                     <button class="btn btn-info" type="submit"><i class="fas fa-paper-plane"></i></button>
                 </div>
@@ -116,3 +118,40 @@
 </div>
 {{/each}}
 </div>
+
+<script>
+    document.querySelector(".addcomment").addEventListener("submit",comments);
+
+    function comments(e){
+        e.preventDefault();
+        const params = document.querySelector(".commenthidden").value;
+        const value = document.querySelector(".commentinput").value;
+        const xhr = new XMLHttpRequest();
+        document.querySelector(".commentinput").value="";
+        xhr.open("POST","/community/addcomment/"+params,true);
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.onload = function(){
+            if(this.status == 200){
+                const comment = JSON.parse(this.responseText);
+                const innerdiv = document.createElement("div");
+                innerdiv.className="collapse show";
+                innerdiv.id="comments"+comment.discussionaccess;
+                innerdiv.innerHTML=
+                `
+                <div class="container">
+                <img src="{{user.profilephoto}}" class="img-fluid img-thumbnail rounded-circle mr-4 shadow-sm" height="50px" width="50px">
+                <a href="/profile/${comment.useraccess}">{{user.name}}</a>
+                    <a class="text-danger ml-3" href="/community/commentdelete/${comment._id}/{{communities.id}}"><i class="fas fa-trash"></i></a>
+                <div class="ml-5">                
+                <ol class="breadcrumb ml-4 commentlist">
+                    <li class="breadcrumb-item active" aria-current="page">${comment.usercomment}</li>
+                </ol>
+                </div>
+                </div>
+                `;
+                const div = document.querySelector(".commentlist").appendChild(innerdiv);
+            }
+        }
+        xhr.send("value="+value);
+    }
+</script>

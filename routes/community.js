@@ -509,15 +509,14 @@ router.post("/adddiscussion/:id", function (req, res) {
 
 router.post("/addcomment/:id/:id2", function (req, res) {
     let comment = {
-        usercomment:req.body.comment,
+        usercomment:req.body.value,
         discussionaccess: req.params.id,
         useraccess:req.user.id,
         author:req.user.name,
         userphoto:req.user.profilephoto
     };
-    new Comment(comment).save().then(function () {
-        req.flash("success_msg", "Successfully Posted");
-        res.redirect("/community/discussions/" + req.params.id2);
+    new Comment(comment).save().then(function (result) {
+        res.json(result);
     });
 });
 
